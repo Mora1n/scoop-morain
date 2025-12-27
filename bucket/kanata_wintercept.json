@@ -22,7 +22,9 @@
             "Kanata Wintercept"
         ]
     ],
-    "persist": ".",
+    "persist": [
+        "kanata.kbd"
+    ],
     "post_install": [
         "# Copy interception.dll from auto-extracted Interception folder",
         "Copy-Item \"$dir\\Interception\\library\\x64\\interception.dll\" \"$dir\\interception.dll\" -Force -ErrorAction SilentlyContinue",
@@ -35,9 +37,9 @@
         "Write-Host 'Kanata wintercept GUI installation completed!' -ForegroundColor Green",
         "Write-Host 'Executable: kanata_windows_gui_wintercept_x64.exe' -ForegroundColor Green",
         "Write-Host '' ",
-        "Write-Host 'Configuration files location:' -ForegroundColor Cyan",
-        "Write-Host \"  $persist_dir\" -ForegroundColor Cyan",
-        "Write-Host 'Place your kanata.kbd in the above directory.' -ForegroundColor Yellow"
+        "Write-Host 'Configuration file location:' -ForegroundColor Cyan",
+        "Write-Host \"  $persist_dir\\kanata.kbd\" -ForegroundColor Cyan",
+        "Write-Host 'The config file is in the same directory as the executable.' -ForegroundColor Yellow"
     ],
     "checkver": {
         "github": "https://github.com/jtroo/kanata"
