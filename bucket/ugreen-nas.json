@@ -5,11 +5,26 @@
   "license": "Proprietary",
   "notes": [
     "UGREEN NAS Windows desktop application",
-    "Requires Windows 10 or later (64-bit)",
-    ""
+    "Requires Windows 10 or later (64-bit)"
   ],
-  "url": "https://dl-cn.ugnas.com/appVer/windows/76215/x64/UGREEN%20NAS_V1.11.0.76215-faa29-win32_x64.exe#/dl.7z",
-  "hash": "c5c2fdcfdbcb3dc24b7ce45d2188e0182dad8af20c7c26852aec1b20e06298d6",
+  "url": "https://api-zh.ugnas.com/api/system/v1/ua/temp/link?appType=client&id=413#/dl.json",
+  "hash": {
+    "mode": "download"
+  },
+  "pre_install": [
+    "# Get dynamic download URL from API",
+    "$jsonFile = \"$dir\\dl.json\"",
+    "$response = Get-Content $jsonFile | ConvertFrom-Json",
+    "$downloadUrl = $response.data.linkData.tempUrl",
+    "$exeFile = \"$dir\\dl.exe\"",
+    "",
+    "# Download the actual installer",
+    "Write-Host \"Downloading UGREEN NAS installer...\"",
+    "Invoke-WebRequest -Uri $downloadUrl -OutFile $exeFile -UserAgent 'Scoop/1.0'",
+    "",
+    "# Remove the JSON file",
+    "Remove-Item $jsonFile -Force"
+  ],
   "installer": {
     "script": [
       "Remove-Item \"$dir\\Uninstall*.exe\" -Force -ErrorAction SilentlyContinue",
@@ -30,10 +45,14 @@
     ]
   ],
   "checkver": {
-    "url": "https://www.ugnas.com/download",
-    "regex": "UGREEN[%20\\s]+NAS_V([\\d.]+)\\.(?<build>\\d+)(?:-(?<hash>[a-f0-9]+))?-win32_x64\\.exe"
+    "url": "https://api.ugnas.com/api/system/v3/sa/apk",
+    "jsonpath": "$.data.appSoftVers[?(@.appNo=='com.ugreenNasPro.win' && @.clientBit==2)]",
+    "regex": "verName.*?v([\\d.]+).*?\"id\":(\\d+)"
   },
   "autoupdate": {
-    "url": "https://dl-cn.ugnas.com/appVer/windows/$matchBuild/x64/UGREEN%20NAS_V$version.$matchBuild-$matchHash-win32_x64.exe#/dl.7z"
+    "url": "https://api-zh.ugnas.com/api/system/v1/ua/temp/link?appType=client&id=$match2#/dl.json",
+    "hash": {
+      "mode": "download"
+    }
   }
 }
