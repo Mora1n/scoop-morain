@@ -12,6 +12,30 @@ scoop bucket add scoop-bucket https://github.com/YOUR_USERNAME/scoop-bucket
 
 ## Available Apps
 
+### UGREEN NAS
+
+UGREEN NAS Desktop Client for Windows - Manage your UGREEN NAS devices from your desktop.
+
+**Install:**
+```powershell
+scoop install scoop-bucket/ugreen-nas
+```
+
+**Features:**
+- Full-featured desktop client for UGREEN NAS
+- File management and synchronization
+- Media streaming and playback
+- Photo backup and management
+- Remote access to your NAS
+
+**Version:** 1.11.0
+
+**Executable:** `UGREEN NAS.exe` (alias: `ugnas`)
+
+**Requirements:** Windows 10 or later (64-bit)
+
+---
+
 ### Kanata Wintercept
 
 A cross-platform software keyboard remapper with Interception driver support (GUI version).
@@ -57,7 +81,8 @@ scoop update <app-name>
 ```
 scoop-bucket/
 ├── bucket/
-│   └── kanata_wintercept.json
+│   ├── kanata_wintercept.json
+│   └── ugreen-nas.json
 ├── README.md
 └── LICENSE
 ```
@@ -88,4 +113,5 @@ MIT License
 
 - [Scoop](https://scoop.sh/) - A command-line installer for Windows
 - [Kanata](https://github.com/jtroo/kanata) - Keyboard remapper
+- [UGREEN NAS](https://www.ugnas.com/) - UGREEN NAS official website
 
