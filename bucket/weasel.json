@@ -5,29 +5,41 @@
   "license": "GPL-3.0-only",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/rime/weasel/releases/download/0.17.4/weasel-0.17.4.0-installer.exe",
+      "url": "https://github.com/rime/weasel/releases/download/0.17.4/weasel-0.17.4.0-installer.exe#/setup.exe",
       "hash": "cf509534a8f5f8af9c98ed7cbb8f135439f145a8cbe7e50ede42bb5b5ab45c29"
     }
   },
-  "innosetup": true,
+  "pre_install": [
+    "if (!(Test-Path \"$persist_dir\\weasel.yaml\")) {",
+    "    New-Item -ItemType Directory -Force -Path \"$persist_dir\" | Out-Null",
+    "}"
+  ],
   "installer": {
-    "script": [
-      "& \"$dir\\$fname\" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=\"$dir\""
+    "file": "setup.exe",
+    "args": [
+      "/VERYSILENT",
+      "/SUPPRESSMSGBOXES",
+      "/NORESTART",
+      "/DIR=$dir\\app"
     ],
     "keep": true
   },
   "uninstaller": {
-    "script": [
-      "& \"$dir\\unins000.exe\" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART"
+    "file": "app\\unins000.exe",
+    "args": [
+      "/VERYSILENT",
+      "/SUPPRESSMSGBOXES",
+      "/NORESTART"
     ]
   },
+  "persist": "data",
   "checkver": {
     "github": "https://github.com/rime/weasel"
   },
   "autoupdate": {
     "architecture": {
       "64bit": {
-        "url": "https://github.com/rime/weasel/releases/download/$version/weasel-$version.0-installer.exe"
+        "url": "https://github.com/rime/weasel/releases/download/$version/weasel-$version.0-installer.exe#/setup.exe"
       }
     }
   },
