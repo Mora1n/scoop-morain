@@ -9,31 +9,29 @@
       "hash": "cf509534a8f5f8af9c98ed7cbb8f135439f145a8cbe7e50ede42bb5b5ab45c29"
     }
   },
-  "pre_install": [
-    "if (!(Test-Path \"$persist_dir\\weasel.yaml\")) {",
-    "    New-Item -ItemType Directory -Force -Path \"$persist_dir\" | Out-Null",
-    "}"
-  ],
   "installer": {
-    "file": "setup.exe",
-    "args": [
-      "/VERYSILENT",
-      "/SUPPRESSMSGBOXES",
-      "/NORESTART",
-      "/DIR=$dir\\app"
+    "script": [
+      "$processArgs = @{",
+      "    FilePath = \"$dir\\setup.exe\"",
+      "    ArgumentList = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', \"/DIR=$dir\\app\")",
+      "    Wait = $true",
+      "    Verb = 'RunAs'",
+      "}",
+      "Start-Process @processArgs"
     ],
-    "keep": true,
-    "require_admin": true
+    "keep": true
   },
   "uninstaller": {
-    "file": "app\\unins000.exe",
-    "args": [
-      "/VERYSILENT",
-      "/SUPPRESSMSGBOXES",
-      "/NORESTART"
+    "script": [
+      "$processArgs = @{",
+      "    FilePath = \"$dir\\app\\unins000.exe\"",
+      "    ArgumentList = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART')",
+      "    Wait = $true",
+      "    Verb = 'RunAs'",
+      "}",
+      "Start-Process @processArgs"
     ]
   },
-  "persist": "data",
   "checkver": {
     "github": "https://github.com/rime/weasel"
   },
