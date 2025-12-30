@@ -11,23 +11,13 @@
   },
   "installer": {
     "script": [
-      "$processArgs = @{",
-      "    FilePath = \"$dir\\setup.exe\"",
-      "    ArgumentList = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', \"/DIR=$dir\\app\")",
-      "    Wait = $true",
-      "}",
-      "Start-Process @processArgs"
+      "Start-Process -FilePath \"$dir\\setup.exe\" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', \"/DIR=$dir\\app\" -Wait"
     ],
     "keep": true
   },
   "uninstaller": {
     "script": [
-      "$processArgs = @{",
-      "    FilePath = \"$dir\\app\\unins000.exe\"",
-      "    ArgumentList = @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART')",
-      "    Wait = $true",
-      "}",
-      "Start-Process @processArgs"
+      "Start-Process -FilePath \"$dir\\app\\unins000.exe\" -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait"
     ]
   },
   "checkver": {
