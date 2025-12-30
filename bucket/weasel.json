@@ -22,9 +22,9 @@
       "/NORESTART",
       "/DIR=$dir\\app"
     ],
-    "keep": true
+    "keep": true,
+    "require_admin": true
   },
-  "require_admin": true,
   "uninstaller": {
     "file": "app\\unins000.exe",
     "args": [

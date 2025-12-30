@@ -18,7 +18,9 @@ Rime Input Method Engine for Windows - A powerful and customizable Chinese input
 
 **Install:**
 ```powershell
-scoop install scoop-bucket/weasel
+# Requires administrator privileges
+scoop install sudo
+sudo scoop install scoop-bucket/weasel
 ```
 
 **Features:**
@@ -63,7 +65,7 @@ Place your `kanata.kbd` and other configuration files in the persist directory.
 After adding the bucket, install any app with:
 
 ```powershell
-scoop install scoop-bucket/<app-name>
+scoop install scoop-morain/<app-name>
 ```
 
 Update apps:
