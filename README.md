@@ -12,6 +12,27 @@ scoop bucket add scoop-bucket https://github.com/YOUR_USERNAME/scoop-bucket
 
 ## Available Apps
 
+### Weasel
+
+Rime Input Method Engine for Windows - A powerful and customizable Chinese input method.
+
+**Install:**
+```powershell
+scoop install scoop-bucket/weasel
+```
+
+**Features:**
+- Rime input method engine with extensive customization
+- Support for multiple input schemas (Pinyin, Cangjie, etc.)
+- Highly configurable through YAML files
+- Active community and schema ecosystem
+
+**Version:** 0.17.4
+
+**Note:** Please restart or log out of Windows after installation for the input method to take effect.
+
+---
+
 ### Kanata Wintercept
 
 A cross-platform software keyboard remapper with Interception driver support (GUI version).
@@ -57,6 +78,7 @@ scoop update <app-name>
 ```
 scoop-bucket/
 ├── bucket/
+│   ├── weasel.json
 │   └── kanata_wintercept.json
 ├── README.md
 └── LICENSE

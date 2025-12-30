@@ -1,0 +1,35 @@
+{
+  "version": "0.17.4",
+  "description": "Weasel - Rime Input Method Engine for Windows",
+  "homepage": "https://github.com/rime/weasel",
+  "license": "GPL-3.0-only",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/rime/weasel/releases/download/0.17.4/weasel-0.17.4.0-installer.exe",
+      "hash": "cf509534a8f5f8af9c98ed7cbb8f135439f145a8cbe7e50ede42bb5b5ab45c29"
+    }
+  },
+  "innosetup": true,
+  "installer": {
+    "script": [
+      "& \"$dir\\$fname\" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR=\"$dir\""
+    ],
+    "keep": true
+  },
+  "uninstaller": {
+    "script": [
+      "& \"$dir\\unins000.exe\" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART"
+    ]
+  },
+  "checkver": {
+    "github": "https://github.com/rime/weasel"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/rime/weasel/releases/download/$version/weasel-$version.0-installer.exe"
+      }
+    }
+  },
+  "notes": "Please restart or log out of Windows after installation for the input method to take effect."
+}
