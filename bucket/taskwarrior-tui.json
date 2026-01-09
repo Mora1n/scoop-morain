@@ -17,7 +17,10 @@
             "hash": "3006303b64c8f73e1aec5b2d73b5e3be0998b670ccf9a5c33f5da930304b79c0"
         }
     },
-    "bin": "taskwarrior-tui.exe",
+    "bin": [
+        ["taskwarrior-tui.exe", "taskwarrior-tui"],
+        ["taskwarrior-tui.exe", "tt"]
+    ],
     "checkver": {
         "github": "https://github.com/kdheepak/taskwarrior-tui"
     },
