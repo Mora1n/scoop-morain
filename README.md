@@ -7,7 +7,7 @@ A personal Scoop bucket for various applications and tools.
 Add this bucket to your Scoop installation:
 
 ```powershell
-scoop bucket add scoop-bucket https://github.com/YOUR_USERNAME/scoop-bucket
+scoop bucket add scoop-morain https://github.com/Mora1n/scoop-morain
 ```
 
 ## Available Apps
@@ -20,7 +20,7 @@ Rime Input Method Engine for Windows - A powerful and customizable Chinese input
 ```powershell
 # Requires administrator privileges
 scoop install sudo
-sudo scoop install scoop-bucket/weasel
+sudo scoop install scoop-morain/weasel
 ```
 
 **Features:**
@@ -35,13 +35,37 @@ sudo scoop install scoop-bucket/weasel
 
 ---
 
+### Taskwarrior TUI
+
+A terminal user interface for Taskwarrior - An elegant and efficient task management interface.
+
+**Install:**
+```powershell
+scoop install scoop-morain/taskwarrior-tui
+```
+
+**Features:**
+- Beautiful terminal UI for Taskwarrior
+- Fast and responsive task management
+- Full Taskwarrior functionality in an intuitive interface
+- Keyboard-driven workflow
+
+**Version:** 0.26.5
+
+**Note:** Requires Taskwarrior to be installed separately:
+```powershell
+scoop install main/task
+```
+
+---
+
 ### Kanata Wintercept
 
 A cross-platform software keyboard remapper with Interception driver support (GUI version).
 
 **Install:**
 ```powershell
-scoop install scoop-bucket/kanata_wintercept
+scoop install scoop-morain/kanata_wintercept
 ```
 
 **Features:**
@@ -81,6 +105,7 @@ scoop update <app-name>
 scoop-morain/
 ├── bucket/
 │   ├── kanata_wintercept.json
+│   ├── taskwarrior-tui.json
 │   └── weasel.json
 ├── README.md
 └── LICENSE
@@ -97,7 +122,7 @@ scoop uninstall <app-name>
 Remove this bucket:
 
 ```powershell
-scoop bucket rm scoop-bucket
+scoop bucket rm scoop-morain
 ```
 
 ## Contributing
@@ -111,5 +136,7 @@ MIT License
 ## Links
 
 - [Scoop](https://scoop.sh/) - A command-line installer for Windows
+- [Weasel](https://github.com/rime/weasel) - Rime Input Method Engine for Windows
+- [Taskwarrior TUI](https://github.com/kdheepak/taskwarrior-tui) - Terminal UI for Taskwarrior
 - [Kanata](https://github.com/jtroo/kanata) - Keyboard remapper
 
