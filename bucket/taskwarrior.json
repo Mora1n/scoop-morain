@@ -4,16 +4,16 @@
     "homepage": "https://taskwarrior.org/",
     "license": "MIT",
     "notes": [
-        "This package builds from source and requires:",
-        "1. CMake and MinGW: scoop install cmake mingw",
-        "2. MSYS2 with libuuid: scoop install msys2, then run: pacman -S libutil-linux-devel",
-        "3. Add MSYS2 usr/bin to PATH before installation",
+        "This package builds from source using MSYS2.",
+        "Prerequisites:",
+        "1. Install MSYS2: scoop install msys2",
+        "2. In MSYS2 terminal, install build tools:",
+        "   pacman -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake libutil-linux-devel",
+        "3. Build in MSYS2 MinGW64 environment",
         "",
         "Alternative: Use WSL for easier installation: wsl sudo apt install taskwarrior"
     ],
     "suggest": {
-        "CMake": "main/cmake",
-        "MinGW": "main/mingw",
         "MSYS2": "main/msys2"
     },
     "architecture": {
@@ -23,32 +23,26 @@
         }
     },
     "extract_dir": "task-3.4.2",
-    "pre_install": [
-        "if (!(Test-Path env:MSYSTEM)) {",
-        "    Write-Host 'Warning: MSYS2 environment not detected. Please install MSYS2 and libuuid.' -ForegroundColor Yellow",
-        "    Write-Host 'Run: pacman -S libutil-linux-devel' -ForegroundColor Yellow",
-        "}"
-    ],
     "installer": {
         "script": [
             "$ErrorActionPreference = 'Stop'",
-            "Push-Location \"$dir\"",
-            "try {",
-            "    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$dir\" -G \"MinGW Makefiles\" 2>&1 | Tee-Object -Variable output",
-            "    if ($LASTEXITCODE -ne 0) {",
-            "        Write-Host 'CMake configuration failed. Make sure libuuid is installed in MSYS2.' -ForegroundColor Red",
-            "        throw 'CMake failed'",
-            "    }",
-            "    cmake --build build --config Release",
-            "    if ($LASTEXITCODE -ne 0) { throw 'Build failed' }",
-            "    cmake --install build",
-            "    if ($LASTEXITCODE -ne 0) { throw 'Install failed' }",
-            "} catch {",
-            "    Write-Host \"Build failed: $_\" -ForegroundColor Red",
-            "    Write-Host 'Please ensure MSYS2 is installed with: pacman -S libutil-linux-devel' -ForegroundColor Yellow",
+            "$msys2 = Get-Command msys2 -ErrorAction SilentlyContinue",
+            "if (-not $msys2) {",
+            "    Write-Host 'Error: MSYS2 not found. Please install with: scoop install msys2' -ForegroundColor Red",
             "    exit 1",
-            "} finally {",
-            "    Pop-Location",
+            "}",
+            "$buildScript = @'",
+            "cd \"$($dir -replace '\\\\', '/')\" || exit 1",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$($dir -replace '\\\\', '/')\" -G \"MSYS Makefiles\" || exit 1",
+            "cmake --build build --config Release || exit 1",
+            "cmake --install build || exit 1",
+            "'@",
+            "$buildScript | Out-File -FilePath \"$dir\\build.sh\" -Encoding ASCII",
+            "& msys2 -c \"bash '$($dir -replace '\\\\', '/')/build.sh'\"",
+            "if ($LASTEXITCODE -ne 0) {",
+            "    Write-Host 'Build failed. Make sure you have installed the required packages in MSYS2:' -ForegroundColor Red",
+            "    Write-Host 'pacman -S base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake libutil-linux-devel' -ForegroundColor Yellow",
+            "    exit 1",
             "}"
         ]
     },
