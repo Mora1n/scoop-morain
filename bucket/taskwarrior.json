@@ -1,31 +1,67 @@
 {
-    "version": "2.6.2",
+    "version": "3.4.2",
     "description": "Taskwarrior - Command line Task Management",
     "homepage": "https://taskwarrior.org/",
     "license": "MIT",
     "notes": [
-        "This is the MSYS2 build of Taskwarrior.",
-        "For the latest version (3.4.2), please use WSL: wsl sudo apt install taskwarrior"
+        "This package builds from source and requires:",
+        "1. CMake and MinGW: scoop install cmake mingw",
+        "2. MSYS2 with libuuid: Install MSYS2 and run: pacman -S mingw-w64-x86_64-libuuid",
+        "3. Add MSYS2 MinGW64 bin to PATH before installation",
+        "",
+        "Alternative: Use WSL for easier installation: wsl sudo apt install taskwarrior"
     ],
-    "url": "https://mirror.msys2.org/msys/x86_64/task-2.6.2-2-x86_64.pkg.tar.zst",
-    "hash": "feb00eb0bd603d903fa59487d2d0a51bb0b0b2f0a91158ee98b88d91faf4d98c",
+    "suggest": {
+        "CMake": "main/cmake",
+        "MinGW": "main/mingw",
+        "MSYS2": "main/msys2"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz",
+            "hash": "d302761fcd1268e4a5a545613a2b68c61abd50c0bcaade3b3e68d728dd02e716"
+        }
+    },
+    "extract_dir": "task-3.4.2",
+    "pre_install": [
+        "if (!(Test-Path env:MSYSTEM)) {",
+        "    Write-Host 'Warning: MSYS2 environment not detected. Please install MSYS2 and libuuid.' -ForegroundColor Yellow",
+        "    Write-Host 'Run: pacman -S mingw-w64-x86_64-libuuid' -ForegroundColor Yellow",
+        "}"
+    ],
     "installer": {
         "script": [
-            "# Extract nested tar from zst",
-            "Expand-7zipArchive \"$dir\\task-2.6.2-2-x86_64.pkg.tar.zst\" \"$dir\" -Removal",
-            "Expand-7zipArchive \"$dir\\task-2.6.2-2-x86_64.pkg.tar\" \"$dir\" -Removal",
-            "# Move files from usr/bin to root",
-            "Move-Item \"$dir\\usr\\bin\\*\" \"$dir\" -Force",
-            "# Clean up",
-            "Remove-Item \"$dir\\usr\" -Recurse -Force -ErrorAction SilentlyContinue"
+            "$ErrorActionPreference = 'Stop'",
+            "Push-Location \"$dir\"",
+            "try {",
+            "    cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$dir\" -G \"MinGW Makefiles\" 2>&1 | Tee-Object -Variable output",
+            "    if ($LASTEXITCODE -ne 0) {",
+            "        Write-Host 'CMake configuration failed. Make sure libuuid is installed in MSYS2.' -ForegroundColor Red",
+            "        throw 'CMake failed'",
+            "    }",
+            "    cmake --build build --config Release",
+            "    if ($LASTEXITCODE -ne 0) { throw 'Build failed' }",
+            "    cmake --install build",
+            "    if ($LASTEXITCODE -ne 0) { throw 'Install failed' }",
+            "} catch {",
+            "    Write-Host \"Build failed: $_\" -ForegroundColor Red",
+            "    Write-Host 'Please ensure MSYS2 is installed with: pacman -S mingw-w64-x86_64-libuuid' -ForegroundColor Yellow",
+            "    exit 1",
+            "} finally {",
+            "    Pop-Location",
+            "}"
         ]
     },
-    "bin": "task.exe",
+    "bin": "bin\\task.exe",
     "checkver": {
-        "url": "https://packages.msys2.org/package/task",
-        "regex": "Version:[\\s]*([\\d.]+)-"
+        "github": "https://github.com/GothenburgBitFactory/taskwarrior"
     },
     "autoupdate": {
-        "url": "https://mirror.msys2.org/msys/x86_64/task-$version-$preReleaseVersion-x86_64.pkg.tar.zst"
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v$version/task-$version.tar.gz"
+            }
+        },
+        "extract_dir": "task-$version"
     }
 }

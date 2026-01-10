@@ -41,6 +41,13 @@ A powerful command-line task management tool with extensive features for organiz
 
 **Install:**
 ```powershell
+# Install build dependencies
+scoop install cmake mingw msys2
+
+# In MSYS2 terminal, install libuuid
+pacman -S mingw-w64-x86_64-libuuid
+
+# Then install taskwarrior
 scoop install scoop-morain/taskwarrior
 ```
 
@@ -51,9 +58,9 @@ scoop install scoop-morain/taskwarrior
 - Sync support for multiple devices
 - Extensive plugin ecosystem
 
-**Version:** 2.6.2 (MSYS2 build)
+**Version:** 3.4.2
 
-**Note:** This is the MSYS2 build. For the latest version (3.4.2), use WSL: `wsl sudo apt install taskwarrior`
+**Note:** This package builds from source. Requires MSYS2 with libuuid. For easier installation, use WSL: `wsl sudo apt install taskwarrior`
 
 ---
 
