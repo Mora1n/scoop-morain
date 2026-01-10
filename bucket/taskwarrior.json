@@ -6,8 +6,8 @@
     "notes": [
         "This package builds from source and requires:",
         "1. CMake and MinGW: scoop install cmake mingw",
-        "2. MSYS2 with libuuid: Install MSYS2 and run: pacman -S mingw-w64-x86_64-libuuid",
-        "3. Add MSYS2 MinGW64 bin to PATH before installation",
+        "2. MSYS2 with libuuid: scoop install msys2, then run: pacman -S libutil-linux-devel",
+        "3. Add MSYS2 usr/bin to PATH before installation",
         "",
         "Alternative: Use WSL for easier installation: wsl sudo apt install taskwarrior"
     ],
@@ -26,7 +26,7 @@
     "pre_install": [
         "if (!(Test-Path env:MSYSTEM)) {",
         "    Write-Host 'Warning: MSYS2 environment not detected. Please install MSYS2 and libuuid.' -ForegroundColor Yellow",
-        "    Write-Host 'Run: pacman -S mingw-w64-x86_64-libuuid' -ForegroundColor Yellow",
+        "    Write-Host 'Run: pacman -S libutil-linux-devel' -ForegroundColor Yellow",
         "}"
     ],
     "installer": {
@@ -45,7 +45,7 @@
             "    if ($LASTEXITCODE -ne 0) { throw 'Install failed' }",
             "} catch {",
             "    Write-Host \"Build failed: $_\" -ForegroundColor Red",
-            "    Write-Host 'Please ensure MSYS2 is installed with: pacman -S mingw-w64-x86_64-libuuid' -ForegroundColor Yellow",
+            "    Write-Host 'Please ensure MSYS2 is installed with: pacman -S libutil-linux-devel' -ForegroundColor Yellow",
             "    exit 1",
             "} finally {",
             "    Pop-Location",

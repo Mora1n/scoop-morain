@@ -45,7 +45,7 @@ A powerful command-line task management tool with extensive features for organiz
 scoop install cmake mingw msys2
 
 # In MSYS2 terminal, install libuuid
-pacman -S mingw-w64-x86_64-libuuid
+pacman -S libutil-linux-devel
 
 # Then install taskwarrior
 scoop install scoop-morain/taskwarrior
@@ -60,7 +60,7 @@ scoop install scoop-morain/taskwarrior
 
 **Version:** 3.4.2
 
-**Note:** This package builds from source. Requires MSYS2 with libuuid. For easier installation, use WSL: `wsl sudo apt install taskwarrior`
+**Note:** This package builds from source. Requires MSYS2 with libutil-linux-devel. For easier installation, use WSL: `wsl sudo apt install taskwarrior`
 
 ---
 
