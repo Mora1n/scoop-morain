@@ -35,6 +35,30 @@ sudo scoop install scoop-morain/weasel
 
 ---
 
+### Taskwarrior
+
+A powerful command-line task management tool with extensive features for organizing and tracking tasks.
+
+**Install:**
+```powershell
+# Requires CMake and MinGW for building
+scoop install cmake mingw
+scoop install scoop-morain/taskwarrior
+```
+
+**Features:**
+- Comprehensive task management from the command line
+- Powerful filtering and reporting capabilities
+- Customizable workflows and attributes
+- Sync support for multiple devices
+- Extensive plugin ecosystem
+
+**Version:** 3.4.2
+
+**Note:** This package builds from source during installation. The build process may take a few minutes.
+
+---
+
 ### Taskwarrior TUI
 
 A terminal user interface for Taskwarrior - An elegant and efficient task management interface.
@@ -54,7 +78,7 @@ scoop install scoop-morain/taskwarrior-tui
 
 **Note:** Requires Taskwarrior to be installed separately:
 ```powershell
-scoop install main/task
+scoop install scoop-morain/taskwarrior
 ```
 
 ---
@@ -105,6 +129,7 @@ scoop update <app-name>
 scoop-morain/
 ├── bucket/
 │   ├── kanata_wintercept.json
+│   ├── taskwarrior.json
 │   ├── taskwarrior-tui.json
 │   └── weasel.json
 ├── README.md
@@ -137,6 +162,7 @@ MIT License
 
 - [Scoop](https://scoop.sh/) - A command-line installer for Windows
 - [Weasel](https://github.com/rime/weasel) - Rime Input Method Engine for Windows
+- [Taskwarrior](https://github.com/GothenburgBitFactory/taskwarrior) - Command line Task Management
 - [Taskwarrior TUI](https://github.com/kdheepak/taskwarrior-tui) - Terminal UI for Taskwarrior
 - [Kanata](https://github.com/jtroo/kanata) - Keyboard remapper
 

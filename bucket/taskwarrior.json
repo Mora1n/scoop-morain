@@ -1,0 +1,43 @@
+{
+    "version": "3.4.2",
+    "description": "Taskwarrior - Command line Task Management",
+    "homepage": "https://taskwarrior.org/",
+    "license": "MIT",
+    "notes": [
+        "This package requires CMake and a C++ compiler (Visual Studio or MinGW) to build.",
+        "Install build tools with: scoop install cmake mingw",
+        "The build process will run automatically during installation."
+    ],
+    "suggest": {
+        "CMake": "main/cmake",
+        "MinGW": "main/mingw"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz",
+            "hash": "d302761fcd1268e4a5a545613a2b68c61abd50c0bcaade3b3e68d728dd02e716"
+        }
+    },
+    "extract_dir": "task-3.4.2",
+    "installer": {
+        "script": [
+            "Push-Location \"$dir\"",
+            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$dir\" -G \"MinGW Makefiles\"",
+            "cmake --build build --config Release",
+            "cmake --install build",
+            "Pop-Location"
+        ]
+    },
+    "bin": "bin\\task.exe",
+    "checkver": {
+        "github": "https://github.com/GothenburgBitFactory/taskwarrior"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v$version/task-$version.tar.gz"
+            }
+        },
+        "extract_dir": "task-$version"
+    }
+}
