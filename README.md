@@ -41,8 +41,6 @@ A powerful command-line task management tool with extensive features for organiz
 
 **Install:**
 ```powershell
-# Requires CMake and MinGW for building
-scoop install cmake mingw
 scoop install scoop-morain/taskwarrior
 ```
 
@@ -53,9 +51,9 @@ scoop install scoop-morain/taskwarrior
 - Sync support for multiple devices
 - Extensive plugin ecosystem
 
-**Version:** 3.4.2
+**Version:** 2.6.2 (MSYS2 build)
 
-**Note:** This package builds from source during installation. The build process may take a few minutes.
+**Note:** This is the MSYS2 build. For the latest version (3.4.2), use WSL: `wsl sudo apt install taskwarrior`
 
 ---
 

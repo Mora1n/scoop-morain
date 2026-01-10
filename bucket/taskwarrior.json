@@ -1,43 +1,31 @@
 {
-    "version": "3.4.2",
+    "version": "2.6.2",
     "description": "Taskwarrior - Command line Task Management",
     "homepage": "https://taskwarrior.org/",
     "license": "MIT",
     "notes": [
-        "This package requires CMake and a C++ compiler (Visual Studio or MinGW) to build.",
-        "Install build tools with: scoop install cmake mingw",
-        "The build process will run automatically during installation."
+        "This is the MSYS2 build of Taskwarrior.",
+        "For the latest version (3.4.2), please use WSL: wsl sudo apt install taskwarrior"
     ],
-    "suggest": {
-        "CMake": "main/cmake",
-        "MinGW": "main/mingw"
-    },
-    "architecture": {
-        "64bit": {
-            "url": "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v3.4.2/task-3.4.2.tar.gz",
-            "hash": "d302761fcd1268e4a5a545613a2b68c61abd50c0bcaade3b3e68d728dd02e716"
-        }
-    },
-    "extract_dir": "task-3.4.2",
+    "url": "https://mirror.msys2.org/msys/x86_64/task-2.6.2-2-x86_64.pkg.tar.zst",
+    "hash": "feb00eb0bd603d903fa59487d2d0a51bb0b0b2f0a91158ee98b88d91faf4d98c",
     "installer": {
         "script": [
-            "Push-Location \"$dir\"",
-            "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$dir\" -G \"MinGW Makefiles\"",
-            "cmake --build build --config Release",
-            "cmake --install build",
-            "Pop-Location"
+            "# Extract nested tar from zst",
+            "Expand-7zipArchive \"$dir\\task-2.6.2-2-x86_64.pkg.tar.zst\" \"$dir\" -Removal",
+            "Expand-7zipArchive \"$dir\\task-2.6.2-2-x86_64.pkg.tar\" \"$dir\" -Removal",
+            "# Move files from usr/bin to root",
+            "Move-Item \"$dir\\usr\\bin\\*\" \"$dir\" -Force",
+            "# Clean up",
+            "Remove-Item \"$dir\\usr\" -Recurse -Force -ErrorAction SilentlyContinue"
         ]
     },
-    "bin": "bin\\task.exe",
+    "bin": "task.exe",
     "checkver": {
-        "github": "https://github.com/GothenburgBitFactory/taskwarrior"
+        "url": "https://packages.msys2.org/package/task",
+        "regex": "Version:[\\s]*([\\d.]+)-"
     },
     "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v$version/task-$version.tar.gz"
-            }
-        },
-        "extract_dir": "task-$version"
+        "url": "https://mirror.msys2.org/msys/x86_64/task-$version-$preReleaseVersion-x86_64.pkg.tar.zst"
     }
 }
